@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Student Details - Admin Panel</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .student-info {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .info-item {
+            margin-bottom: 10px;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #333;
+        }
+        .info-value {
+            color: #666;
+        }
+        .scores-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .score-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #007bff;
+        }
+        .score-card.dominant {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+        .score-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .score-value {
+            font-size: 24px;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .dominant-type {
+            background: #d4edda;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .dominant-type h2 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+        .career-recommendations {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 30px;
+        }
+        .career-recommendations h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+        .career-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .career-list li {
+            padding: 5px 0;
+            border-bottom: 1px solid #ffeaa7;
+        }
+        .career-list li:last-child {
+            border-bottom: none;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 10px 5px;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-secondary {
+            background: #6c757d;
+        }
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-success:hover {
+            background: #218838;
+        }
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 5px;
+        }
+        .detailed-career-descriptions {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .career-type-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .career-type-section h4 {
+            color: #667eea;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 18px;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+        .career-content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .career-content-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+        .career-content-item h5 {
+            color: #495057;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 16px;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 5px;
+        }
+        .career-content-item p {
+            margin: 8px 0;
+            color: #495057;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        .career-content-item ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+        .career-content-item li {
+            margin: 4px 0;
+            color: #495057;
+            font-size: 14px;
+        }
+        @media print {
+            .header, .actions, .btn {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+            }
+            .container {
+                padding: 0 !important;
+            }
+            .student-info, .scores-container, .dominant-type, .career-recommendations, .detailed-career-descriptions {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                margin-bottom: 20px !important;
+                page-break-inside: avoid;
+            }
+            .career-type-section {
+                page-break-inside: avoid;
+                border-left: 2px solid #ccc !important;
+                background: #f8f9fa !important;
+            }
+            .career-content-grid {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 15px !important;
+            }
+            .career-content-item {
+                background: white !important;
+                border: 1px solid #ddd !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>👤 Student Details</h1>
+            <div class="user-info">
+                <span>Administrator</span>
+                <a href="{{ url_for('admin_logout') }}" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="student-info">
+            <div class="section-title">📋 Student Information</div>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Name:</span>
+                    <span class="info-value">{{ data.name }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Grade:</span>
+                    <span class="info-value">{{ data.grade }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">School:</span>
+                    <span class="info-value">{{ data.school_name }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Address:</span>
+                    <span class="info-value">{{ data.address }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Father's Name:</span>
+                    <span class="info-value">{{ data.fathers_name }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Father's Phone:</span>
+                    <span class="info-value">{{ data.fathers_phone }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Mother's Name:</span>
+                    <span class="info-value">{{ data.mothers_name }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Mother's Phone:</span>
+                    <span class="info-value">{{ data.mothers_phone }}</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dominant-type">
+            <h2>🎯 Interest Code: {{ data.dominant_type }}</h2>
+            <p>
+                {% if data.dominant_type and data.dominant_type|length == 3 %}
+                    <strong>Top 3 Interest Areas:</strong><br>
+                    {% for letter in data.dominant_type %}
+                        {% if letter == 'R' %}
+                            <strong>R - Realistic:</strong> You prefer working with things, machines, tools, plants, or animals.<br>
+                        {% elif letter == 'I' %}
+                            <strong>I - Investigative:</strong> You prefer working with ideas, thinking, organizing, and understanding.<br>
+                        {% elif letter == 'A' %}
+                            <strong>A - Artistic:</strong> You prefer working with forms, designs, and patterns, communicating feelings and ideas.<br>
+                        {% elif letter == 'S' %}
+                            <strong>S - Social:</strong> You prefer working with people, helping, informing, teaching, or serving.<br>
+                        {% elif letter == 'E' %}
+                            <strong>E - Enterprising:</strong> You prefer working with people, influencing, persuading, performing, leading, or managing.<br>
+                        {% elif letter == 'C' %}
+                            <strong>C - Conventional:</strong> You prefer working with data, keeping records, filing, reproducing materials, following a set plan.<br>
+                        {% endif %}
+                    {% endfor %}
+                {% elif data.dominant_type %}
+                    <strong>Interest Code:</strong> {{ data.dominant_type }}
+                {% else %}
+                    <strong>No Interest Code Available:</strong> Please retake the test to generate your interest code.
+                {% endif %}
+            </p>
+        </div>
+        
+        <div class="scores-container">
+            <div class="score-card {% if 'R' in data.dominant_type %}dominant{% endif %}">
+                <div class="score-title">Realistic (R)</div>
+                <div class="score-value">{{ data.scores.R }}</div>
+            </div>
+            <div class="score-card {% if 'I' in data.dominant_type %}dominant{% endif %}">
+                <div class="score-title">Investigative (I)</div>
+                <div class="score-value">{{ data.scores.I }}</div>
+            </div>
+            <div class="score-card {% if 'A' in data.dominant_type %}dominant{% endif %}">
+                <div class="score-title">Artistic (A)</div>
+                <div class="score-value">{{ data.scores.A }}</div>
+            </div>
+            <div class="score-card {% if 'S' in data.dominant_type %}dominant{% endif %}">
+                <div class="score-title">Social (S)</div>
+                <div class="score-value">{{ data.scores.S }}</div>
+            </div>
+            <div class="score-card {% if 'E' in data.dominant_type %}dominant{% endif %}">
+                <div class="score-title">Enterprising (E)</div>
+                <div class="score-value">{{ data.scores.E }}</div>
+            </div>
+            <div class="score-card {% if 'C' in data.dominant_type %}dominant{% endif %}">
+                <div class="score-title">Conventional (C)</div>
+                <div class="score-value">{{ data.scores.C }}</div>
+            </div>
+        </div>
+        
+        <div class="career-recommendations">
+            <h3>💼 Career Recommendations for Interest Code ({{ data.dominant_type }}):</h3>
+            <ul class="career-list">
+                {% if data.dominant_type %}
+                    {% for letter in data.dominant_type %}
+                        {% if letter == 'R' %}
+                            <li><strong>Realistic (R) Careers:</strong> Engineer (Mechanical, Civil, Electrical), Architect, Construction Manager, Automotive Technician, Pilot, Farmer, Police Officer, Firefighter</li>
+                        {% elif letter == 'I' %}
+                            <li><strong>Investigative (I) Careers:</strong> Scientist (Physics, Chemistry, Biology), Mathematician, Computer Programmer, Research Analyst, Medical Doctor, Psychologist, Engineer (Software, Systems), Statistician</li>
+                        {% elif letter == 'A' %}
+                            <li><strong>Artistic (A) Careers:</strong> Graphic Designer, Interior Designer, Musician, Writer/Author, Photographer, Film Director, Fashion Designer, Architect</li>
+                        {% elif letter == 'S' %}
+                            <li><strong>Social (S) Careers:</strong> Teacher/Professor, Counselor, Social Worker, Nurse, Human Resources Manager, Psychologist, Physical Therapist, Speech Therapist</li>
+                        {% elif letter == 'E' %}
+                            <li><strong>Enterprising (E) Careers:</strong> Business Manager, Sales Representative, Entrepreneur, Marketing Manager, Lawyer, Real Estate Agent, Public Relations Specialist, Politician</li>
+                        {% elif letter == 'C' %}
+                            <li><strong>Conventional (C) Careers:</strong> Accountant, Financial Analyst, Banker, Administrative Assistant, Data Entry Specialist, Insurance Agent, Tax Preparer, Quality Control Inspector</li>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <li><strong>No career recommendations available:</strong> Please retake the test to generate your interest code and career recommendations.</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <!-- Detailed RIASEC Career Descriptions -->
+        {% if data.dominant_type %}
+        <div class="detailed-career-descriptions">
+            <h3 class="section-title">📚 Detailed Career Analysis for Interest Code ({{ data.dominant_type }})</h3>
+            
+            {% for letter in data.dominant_type %}
+                {% if letter == 'R' %}
+                <div class="career-type-section">
+                    <h4>🔹 Realistic (R) – "The Doers"</h4>
+                    <div class="career-content-grid">
+                        <div class="career-content-item">
+                            <h5>General Description</h5>
+                            <p>Action-oriented individuals who prefer physical, hands-on work. They are mechanically inclined and enjoy using tools, machinery, or working outdoors. They favor concrete over abstract tasks and are often independent and practical.</p>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Core Strengths</h5>
+                            <ul>
+                                <li>Physical strength and stamina</li>
+                                <li>Spatial awareness and mechanical aptitude</li>
+                                <li>Attention to detail</li>
+                                <li>Strong problem-solving in practical situations</li>
+                                <li>Reliability and persistence</li>
+                            </ul>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Work Environment Preferences</h5>
+                            <ul>
+                                <li>Active, physical settings (construction sites, farms, labs)</li>
+                                <li>Jobs with clear, observable outcomes</li>
+                                <li>Minimal supervision and freedom to work alone</li>
+                                <li>Structured tasks with predictable routines</li>
+                            </ul>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Ideal Careers</h5>
+                            <ul>
+                                <li>Electrician, Plumber, Mechanic</li>
+                                <li>Carpenter, Mason, Welder</li>
+                                <li>Aircraft Technician, Pilot</li>
+                                <li>Firefighter, Security Officer</li>
+                                <li>Landscape Architect, Environmental Technician</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% elif letter == 'I' %}
+                <div class="career-type-section">
+                    <h4>🔬 Investigative (I) – "The Thinkers"</h4>
+                    <div class="career-content-grid">
+                        <div class="career-content-item">
+                            <h5>General Description</h5>
+                            <p>Curious, analytical, and intellectual individuals who enjoy exploring ideas, conducting research, and solving theoretical or scientific problems. They are less interested in leadership and more focused on knowledge.</p>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Core Strengths</h5>
+                            <ul>
+                                <li>Analytical thinking and logic</li>
+                                <li>Scientific curiosity</li>
+                                <li>Problem-solving and abstract reasoning</li>
+                                <li>Self-motivation and independent work</li>
+                            </ul>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Work Environment Preferences</h5>
+                            <ul>
+                                <li>Quiet, structured environments like labs or libraries</li>
+                                <li>Freedom to work independently or in small expert teams</li>
+                                <li>Opportunities for research and exploration</li>
+                            </ul>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Ideal Careers</h5>
+                            <ul>
+                                <li>Scientist (physicist, chemist, biologist)</li>
+                                <li>Mathematician, Statistician, Economist</li>
+                                <li>Medical Researcher, Psychologist</li>
+                                <li>Computer Programmer, Data Analyst</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% elif letter == 'A' %}
+                <div class="career-type-section">
+                    <h4>🎨 Artistic (A) – "The Creators"</h4>
+                    <div class="career-content-grid">
+                        <div class="career-content-item">
+                            <h5>General Description</h5>
+                            <p>Imaginative, expressive, and independent individuals who value aesthetics, freedom of expression, and innovation. They dislike rigid rules and prefer unstructured, creative environments.</p>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Core Strengths</h5>
+                            <ul>
+                                <li>Creativity and originality</li>
+                                <li>Emotional expression and sensitivity</li>
+                                <li>Visual and verbal communication</li>
+                                <li>Ability to generate new ideas</li>
+                            </ul>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Work Environment Preferences</h5>
+                            <ul>
+                                <li>Flexible, open-minded workplaces</li>
+                                <li>Freedom to express individuality</li>
+                                <li>Informal settings with low supervision</li>
+                            </ul>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Ideal Careers</h5>
+                            <ul>
+                                <li>Graphic Designer, Animator, Fashion Designer</li>
+                                <li>Writer, Editor, Copywriter, Journalist</li>
+                                <li>Architect, Art Director</li>
+                                <li>Musician, Actor, Film Producer</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% elif letter == 'S' %}
+                <div class="career-type-section">
+                    <h4>🤝 Social (S) – "The Helpers"</h4>
+                    <div class="career-content-grid">
+                        <div class="career-content-item">
+                            <h5>General Description</h5>
+                            <p>Empathetic, cooperative, and skilled individuals who enjoy helping, teaching, and supporting people. They are often drawn to caregiving or educational roles.</p>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Core Strengths</h5>
+                            <ul>
+                                <li>Communication and interpersonal skills</li>
+                                <li>Emotional intelligence and empathy</li>
+                                <li>Leadership in group settings</li>
+                                <li>Teaching and nurturing abilities</li>
+                            </ul>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Work Environment Preferences</h5>
+                            <ul>
+                                <li>People-centered environments (schools, hospitals, community centers)</li>
+                                <li>Collaborative teams</li>
+                                <li>Roles with clear social impact</li>
+                            </ul>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Ideal Careers</h5>
+                            <ul>
+                                <li>Nurse, Doctor, Physical Therapist</li>
+                                <li>Teacher, School Counselor, Social Worker</li>
+                                <li>HR Specialist, Psychologist, Career Coach</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% elif letter == 'E' %}
+                <div class="career-type-section">
+                    <h4>💼 Enterprising (E) – "The Persuaders"</h4>
+                    <div class="career-content-grid">
+                        <div class="career-content-item">
+                            <h5>General Description</h5>
+                            <p>Ambitious, energetic, and persuasive individuals who enjoy leading, managing, and taking risks. Often drawn to business, politics, and leadership roles.</p>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Core Strengths</h5>
+                            <ul>
+                                <li>Verbal persuasion and negotiation</li>
+                                <li>Leadership and decision-making</li>
+                                <li>Strategic thinking and planning</li>
+                                <li>Entrepreneurial drive</li>
+                            </ul>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Work Environment Preferences</h5>
+                            <ul>
+                                <li>Fast-paced, dynamic settings (sales, politics, business)</li>
+                                <li>Roles with upward mobility and financial incentives</li>
+                                <li>High autonomy and responsibility</li>
+                            </ul>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Ideal Careers</h5>
+                            <ul>
+                                <li>Entrepreneur, CEO, Sales Manager</li>
+                                <li>Politician, Lawyer, Marketing Executive</li>
+                                <li>Investment Banker, Real Estate Agent</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% elif letter == 'C' %}
+                <div class="career-type-section">
+                    <h4>📊 Conventional (C) – "The Organizers"</h4>
+                    <div class="career-content-grid">
+                        <div class="career-content-item">
+                            <h5>General Description</h5>
+                            <p>Organized, detail-oriented, and efficient individuals who prefer structured tasks, routines, and rules. They are often drawn to data, procedures, and order.</p>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Core Strengths</h5>
+                            <ul>
+                                <li>Attention to detail and accuracy</li>
+                                <li>Organizational and clerical skills</li>
+                                <li>Task management and scheduling</li>
+                                <li>Data handling and recordkeeping</li>
+                            </ul>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Work Environment Preferences</h5>
+                            <ul>
+                                <li>Offices, libraries, or financial institutions</li>
+                                <li>Predictable routines with clear guidelines</li>
+                                <li>Jobs with established protocols and standards</li>
+                            </ul>
+                        </div>
+                        <div class="career-content-item">
+                            <h5>Ideal Careers</h5>
+                            <ul>
+                                <li>Accountant, Auditor, Actuary</li>
+                                <li>Administrative Assistant, Office Manager</li>
+                                <li>Data Analyst, Banker, Compliance Officer</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div class="actions">
+            <button onclick="window.print()" class="btn btn-success">🖨️ Print Results</button>
+            <a href="{{ url_for('admin_results') }}" class="btn btn-secondary">← Back to Results</a>
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html> 

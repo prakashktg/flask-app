@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>RIASEC Career Interest Test</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+        .logo {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        .description {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 10px 5px;
+            transition: background 0.3s;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .btn-secondary {
+            background: #6c757d;
+        }
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        .features {
+            margin: 30px 0;
+            text-align: left;
+        }
+        .features h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+        .features li {
+            padding: 8px 0;
+            color: #666;
+            position: relative;
+            padding-left: 25px;
+        }
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+        .admin-link {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .admin-link a {
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .admin-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🎯</div>
+        
+        <h1>RIASEC Career Interest Test</h1>
+        
+        <div class="description">
+            Discover your career interests and find the perfect career path that matches your personality and preferences. 
+            This scientifically validated test will help you understand your strengths and guide you toward fulfilling career choices.
+        </div>
+        
+        <div class="features">
+            <h3>What you'll discover:</h3>
+            <ul>
+                <li>Your unique interest code (top 3 areas)</li>
+                <li>Detailed personality insights</li>
+                <li>Personalized career recommendations</li>
+                <li>Professional guidance for your future</li>
+            </ul>
+        </div>
+        
+        <div>
+            <a href="{{ url_for('register') }}" class="btn">Start Test Now</a>
+        </div>
+        
+        <div class="admin-link">
+            <a href="{{ url_for('admin_login') }}">Administrator Login</a>
+        </div>
+    </div>
+</body>
+</html> 

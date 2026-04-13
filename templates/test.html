@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>RIASEC Career Interest Test</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            max-width: 900px;
+            margin: auto;
+            background: #f4f6f9;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .student-info {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+        }
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        .question {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        .question:hover {
+            background: #eef4ff;
+        }
+        .question-text {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .radio-group {
+            display: flex;
+            gap: 20px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .radio-option input[type="radio"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        .radio-option label {
+            cursor: pointer;
+            font-size: 15px;
+            color: #333;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            font-size: 18px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .instructions {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+        .question-number {
+            font-weight: bold;
+            color: #007bff;
+            margin-right: 10px;
+        }
+        .progress-indicator {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RIASEC Career Interest Test</h1>
+        
+        <div class="student-info">
+            <strong>Student:</strong> {{ session.get('student_name', 'Unknown') }}
+        </div>
+        
+        <div class="instructions">
+            <strong>Instructions:</strong> Please read each statement and select "Yes" if it describes you or "No" if it doesn't. 
+            Be honest and think about what you really like to do, not what you think you should like.
+        </div>
+
+        <form method="POST" action="{{ url_for('submit_test') }}">
+            <!-- Section 1: Questions 1-21 -->
+            <div class="section">
+                <div class="section-title">Section 1: Questions 1-21</div>
+                <div class="progress-indicator">Complete this section before moving to Section 2</div>
+                
+                <div class="question">
+                    <div class="question-text"><span class="question-number">1.</span>I like to work on cars</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q1" value="R_yes" id="q1_yes">
+                            <label for="q1_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q1" value="R_no" id="q1_no">
+                            <label for="q1_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">2.</span>I like to do puzzles</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q2" value="I_yes" id="q2_yes">
+                            <label for="q2_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q2" value="I_no" id="q2_no">
+                            <label for="q2_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">3.</span>I am good at working independently</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q3" value="A_yes" id="q3_yes">
+                            <label for="q3_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q3" value="A_no" id="q3_no">
+                            <label for="q3_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">4.</span>I like to work in teams</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q4" value="S_yes" id="q4_yes">
+                            <label for="q4_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q4" value="S_no" id="q4_no">
+                            <label for="q4_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">5.</span>I am an ambitious person, I set goals for myself</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q5" value="E_yes" id="q5_yes">
+                            <label for="q5_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q5" value="E_no" id="q5_no">
+                            <label for="q5_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">6.</span>I like to organize things (files, desks/offices)</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q6" value="C_yes" id="q6_yes">
+                            <label for="q6_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q6" value="C_no" id="q6_no">
+                            <label for="q6_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">7.</span>I like to build things</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q7" value="R_yes" id="q7_yes">
+                            <label for="q7_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q7" value="R_no" id="q7_no">
+                            <label for="q7_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">8.</span>I like to read about art and music</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q8" value="A_yes" id="q8_yes">
+                            <label for="q8_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q8" value="A_no" id="q8_no">
+                            <label for="q8_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">9.</span>I like to have clear instructions to follow</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q9" value="C_yes" id="q9_yes">
+                            <label for="q9_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q9" value="C_no" id="q9_no">
+                            <label for="q9_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">10.</span>I like to try to influence or persuade people</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q10" value="E_yes" id="q10_yes">
+                            <label for="q10_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q10" value="E_no" id="q10_no">
+                            <label for="q10_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">11.</span>I like to do experiments</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q11" value="I_yes" id="q11_yes">
+                            <label for="q11_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q11" value="I_no" id="q11_no">
+                            <label for="q11_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">12.</span>I like to teach or train people</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q12" value="S_yes" id="q12_yes">
+                            <label for="q12_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q12" value="S_no" id="q12_no">
+                            <label for="q12_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">13.</span>I like trying to help people solve their problems</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q13" value="S_yes" id="q13_yes">
+                            <label for="q13_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q13" value="S_no" id="q13_no">
+                            <label for="q13_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">14.</span>I like to take care of animals</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q14" value="R_yes" id="q14_yes">
+                            <label for="q14_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q14" value="R_no" id="q14_no">
+                            <label for="q14_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">15.</span>I wouldn't mind working 8 hours per day in an office</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q15" value="C_yes" id="q15_yes">
+                            <label for="q15_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q15" value="C_no" id="q15_no">
+                            <label for="q15_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">16.</span>I like selling things</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q16" value="E_yes" id="q16_yes">
+                            <label for="q16_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q16" value="E_no" id="q16_no">
+                            <label for="q16_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">17.</span>I enjoy creative writing</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q17" value="A_yes" id="q17_yes">
+                            <label for="q17_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q17" value="A_no" id="q17_no">
+                            <label for="q17_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">18.</span>I enjoy science</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q18" value="I_yes" id="q18_yes">
+                            <label for="q18_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q18" value="I_no" id="q18_no">
+                            <label for="q18_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">19.</span>I am quick to take on new responsibilities</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q19" value="E_yes" id="q19_yes">
+                            <label for="q19_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q19" value="E_no" id="q19_no">
+                            <label for="q19_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">20.</span>I am interested in healing people</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q20" value="S_yes" id="q20_yes">
+                            <label for="q20_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q20" value="S_no" id="q20_no">
+                            <label for="q20_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">21.</span>I enjoy trying to figure out how things work</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q21" value="I_yes" id="q21_yes">
+                            <label for="q21_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q21" value="I_no" id="q21_no">
+                            <label for="q21_no">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Questions 22-42 -->
+            <div class="section">
+                <div class="section-title">Section 2: Questions 22-42</div>
+                <div class="progress-indicator">Complete this section to finish the test</div>
+                
+                <div class="question">
+                    <div class="question-text"><span class="question-number">22.</span>I like putting things together or assembling things</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q22" value="R_yes" id="q22_yes">
+                            <label for="q22_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q22" value="R_no" id="q22_no">
+                            <label for="q22_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">23.</span>I am a creative person</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q23" value="A_yes" id="q23_yes">
+                            <label for="q23_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q23" value="A_no" id="q23_no">
+                            <label for="q23_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">24.</span>I pay attention to details</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q24" value="C_yes" id="q24_yes">
+                            <label for="q24_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q24" value="C_no" id="q24_no">
+                            <label for="q24_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">25.</span>I like to do filing or typing</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q25" value="C_yes" id="q25_yes">
+                            <label for="q25_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q25" value="C_no" id="q25_no">
+                            <label for="q25_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">26.</span>I like to analyze things (problems/situations)</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q26" value="I_yes" id="q26_yes">
+                            <label for="q26_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q26" value="I_no" id="q26_no">
+                            <label for="q26_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">27.</span>I like to play instruments or sing</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q27" value="A_yes" id="q27_yes">
+                            <label for="q27_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q27" value="A_no" id="q27_no">
+                            <label for="q27_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">28.</span>I like helping people</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q28" value="S_yes" id="q28_yes">
+                            <label for="q28_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q28" value="S_no" id="q28_no">
+                            <label for="q28_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">29.</span>I would like to start my own business</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q29" value="E_yes" id="q29_yes">
+                            <label for="q29_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q29" value="E_no" id="q29_no">
+                            <label for="q29_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">30.</span>I like to cook</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q30" value="R_yes" id="q30_yes">
+                            <label for="q30_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q30" value="R_no" id="q30_no">
+                            <label for="q30_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">31.</span>I like acting in plays</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q31" value="A_yes" id="q31_yes">
+                            <label for="q31_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q31" value="A_no" id="q31_no">
+                            <label for="q31_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">32.</span>I am a practical person</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q32" value="R_yes" id="q32_yes">
+                            <label for="q32_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q32" value="R_no" id="q32_no">
+                            <label for="q32_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">33.</span>I like to get into discussions about issues</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q33" value="I_yes" id="q33_yes">
+                            <label for="q33_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q33" value="I_no" id="q33_no">
+                            <label for="q33_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">34.</span>I like to get into discussions about issues</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q34" value="S_yes" id="q34_yes">
+                            <label for="q34_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q34" value="S_no" id="q34_no">
+                            <label for="q34_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">35.</span>I am good at keeping records of my work</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q35" value="C_yes" id="q35_yes">
+                            <label for="q35_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q35" value="C_no" id="q35_no">
+                            <label for="q35_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">36.</span>I like to lead</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q36" value="E_yes" id="q36_yes">
+                            <label for="q36_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q36" value="E_no" id="q36_no">
+                            <label for="q36_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">37.</span>I like working outdoors</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q37" value="R_yes" id="q37_yes">
+                            <label for="q37_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q37" value="R_no" id="q37_no">
+                            <label for="q37_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">38.</span>I would like to work in an office</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q38" value="C_yes" id="q38_yes">
+                            <label for="q38_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q38" value="C_no" id="q38_no">
+                            <label for="q38_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">39.</span>I'm good at math</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q39" value="I_yes" id="q39_yes">
+                            <label for="q39_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q39" value="I_no" id="q39_no">
+                            <label for="q39_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">40.</span>I like helping people</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q40" value="S_yes" id="q40_yes">
+                            <label for="q40_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q40" value="S_no" id="q40_no">
+                            <label for="q40_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">41.</span>I like to draw</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q41" value="A_yes" id="q41_yes">
+                            <label for="q41_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q41" value="A_no" id="q41_no">
+                            <label for="q41_no">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text"><span class="question-number">42.</span>I like to give speeches</div>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="q42" value="E_yes" id="q42_yes">
+                            <label for="q42_yes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q42" value="E_no" id="q42_no">
+                            <label for="q42_no">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">Submit Test</button>
+        </form>
+    </div>
+</body>
+</html> 
